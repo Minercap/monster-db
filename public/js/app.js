@@ -27,7 +27,7 @@ async function fetchClientes(page = 1) {
     try {
         const headers = { 'Content-Type': 'application/json' };
         if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-        const response = await fetch(`${API_URL}/clientes?page=${page}&limit=${PAGE_SIZE}`, { headers });
+        const response = await fetch(`${API_URL}/api/clientes?page=${page}&limit=${PAGE_SIZE}`, { headers });
         if (response.status === 401 || response.status === 403) {
             const loginSection = document.getElementById('login-section');
             if (loginSection) loginSection.style.display = 'flex';
@@ -107,7 +107,7 @@ function renderPage() {
                 try {
                     const headers = {};
                     if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-                    const response = await fetch(`${API_URL}/clientes/${id}`, { method: 'DELETE', headers });
+                    const response = await fetch(`${API_URL}/api/clientes/${id}`, { method: 'DELETE', headers });
                     if (response.ok) {
                         fetchClientes(currentPage);
                     } else {
@@ -162,7 +162,7 @@ async function handleSubmit(event) {
     try {
         const headers = { 'Content-Type': 'application/json' };
         if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-        const response = await fetch(`${API_URL}/clientes`, {
+        const response = await fetch(`${API_URL}/api/clientes`, {
             method: 'POST',
             headers,
             body: JSON.stringify(nuevoCliente)
@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             const headers = { 'Content-Type': 'application/json' };
             if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
-            const response = await fetch(`${API_URL}/clientes/${id}`, {
+            const response = await fetch(`${API_URL}/api/clientes/${id}`, {
                 method: 'PUT',
                 headers,
                 body: JSON.stringify(updatedCliente)

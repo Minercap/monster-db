@@ -149,6 +149,7 @@ function prevPage() {
 
 async function handleSubmit(event) {
     event.preventDefault();
+    console.log('handleSubmit called - agregar cliente');
     const nuevoCliente = {
         optimizador: document.getElementById('optimizador').value,
         nombre: document.getElementById('nombre').value,
@@ -159,29 +160,39 @@ async function handleSubmit(event) {
         notas: document.getElementById('notas').value
     };
 
+    console.log('Datos del cliente:', nuevoCliente);
     try {
         const headers = { 'Content-Type': 'application/json' };
         if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
+        console.log('Enviando POST a:', `${API_URL}/api/clientes`);
         const response = await fetch(`${API_URL}/api/clientes`, {
             method: 'POST',
             headers,
             body: JSON.stringify(nuevoCliente)
         });
 
+        console.log('Response status:', response.status);
         if (response.ok) {
+            console.log('Cliente agregado exitosamente');
             document.getElementById('cliente-form').reset();
             fetchClientes(1);
         } else {
             console.error('Error al agregar el cliente', response.statusText);
+            const errorData = await response.json();
+            console.error('Error data:', errorData);
+            alert('Error: ' + (errorData.error || response.statusText));
         }
     } catch (error) {
         console.error('Error:', error);
+        alert('Error al agregar cliente: ' + error.message);
     }
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM loaded - registrando eventos');
     const clienteForm = document.getElementById('cliente-form');
+    console.log('cliente-form encontrado:', clienteForm);
     if (clienteForm) clienteForm.addEventListener('submit', handleSubmit);
     const nextBtn = document.getElementById('next-page');
     if (nextBtn) nextBtn.addEventListener('click', nextPage);

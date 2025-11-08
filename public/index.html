@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Clientes</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <header class="header">
+        <h1>Gestión de Clientes</h1>
+        <div id="auth-controls">
+            <button id="show-login" class="auth-btn">Iniciar sesión</button>
+            <button id="logout" class="auth-btn" style="display:none;">Cerrar sesión</button>
+        </div>
+    </header>
+    <main class="container">
+    <section class="card">
+            <h2>Agregar Nuevo Cliente</h2>
+            <form id="cliente-form" class="form">
+        <div class="form-group">
+            <label for="nombre">Cliente:</label>
+            <input type="text" id="nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="optimizador">Optimizador:</label>
+            <select id="optimizador">
+                <option value="Empty">Empty</option>
+                <option value="Gena">Gena</option>
+                <option value="Guido">Guido</option>
+                <option value="Quake">Quake</option>
+                <option value="Rosca">Rosca</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="usuario_discord">Usuario Discord:</label>
+            <input type="text" id="usuario_discord">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono">
+        </div>
+        <div class="form-group">
+            <label for="monto_pagado">Monto Pagado:</label>
+            <input type="number" id="monto_pagado" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="descripcion_trabajo">Descripción del Trabajo:</label>
+            <select id="descripcion_trabajo">
+                <option value="Opti windows">Opti windows</option>
+                <option value="Formateo">Formateo</option>
+                <option value="Opti Completa">Opti Completa</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="notas">Notas:</label>
+            <textarea id="notas" rows="3"></textarea>
+        </div>
+        <button type="submit" class="primary-btn">Agregar Cliente</button>
+    </form>
+    <form id="edit-form" class="form" style="display:none; margin-top:20px;">
+        <input type="hidden" id="edit-id">
+        <div class="form-group">
+            <label for="edit-nombre">Cliente:</label>
+            <input type="text" id="edit-nombre" required>
+        </div>
+        <div class="form-group">
+            <label for="edit-optimizador">Optimizador:</label>
+            <select id="edit-optimizador">
+                <option value="Empty">Empty</option>
+                <option value="Gena">Gena</option>
+                <option value="Guido">Guido</option>
+                <option value="Quake">Quake</option>
+                <option value="Rosca">Rosca</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="edit-usuario_discord">Usuario Discord:</label>
+            <input type="text" id="edit-usuario_discord">
+        </div>
+        <div class="form-group">
+            <label for="edit-telefono">Teléfono:</label>
+            <input type="text" id="edit-telefono">
+        </div>
+        <div class="form-group">
+            <label for="edit-monto_pagado">Monto Pagado:</label>
+            <input type="number" id="edit-monto_pagado" step="0.01">
+        </div>
+        <div class="form-group">
+            <label for="edit-descripcion_trabajo">Descripción del Trabajo:</label>
+            <select id="edit-descripcion_trabajo">
+                <option value="Opti windows">Opti windows</option>
+                <option value="Formateo">Formateo</option>
+                <option value="Opti Completa">Opti Completa</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="edit-notas">Notas:</label>
+            <textarea id="edit-notas" rows="3"></textarea>
+        </div>
+        <button type="submit">Guardar Cambios</button>
+        <button type="button" id="cancel-edit">Cancelar</button>
+    </form>
+
+        </section>
+
+        <section class="card">
+            <h2>Lista de Clientes</h2>
+            <div class="table-wrapper">
+                <table id="clientes-table" class="clients-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Optimizador</th>
+                            <th>Cliente</th>
+                            <th>Discord</th>
+                            <th>Teléfono</th>
+                            <th>Monto</th>
+                            <th>Descripción</th>
+                            <th>Notas</th>
+                            <th>Fecha</th>
+                            <th>Editar</th>
+                            <th>Borrar</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div class="pagination">
+                <button id="prev-page" class="page-btn" disabled>Anterior</button>
+                <span id="page-info" class="muted">Página 1</span>
+                <button id="next-page" class="page-btn">Siguiente</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Login modal / section -->
+    <div id="login-section">
+        <div class="card">
+            <h3>Iniciar sesión</h3>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Usuario</label>
+                    <input id="login-username" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Contraseña</label>
+                    <input id="login-password" type="password" required>
+                </div>
+                <div style="display:flex; gap:8px; justify-content:flex-end; margin-top:12px;">
+                    <button type="submit" class="primary-btn">Entrar</button>
+                    <button type="button" id="cancel-login" class="auth-btn">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+</body>
+</html>
